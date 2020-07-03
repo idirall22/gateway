@@ -13,9 +13,9 @@ jobs:
       - checkout
 #       - run: go get -v -t -d ./...
       - setup_remote_docker
-      - run: sudo docker build -t idirall22/gateway:v1 .
+      - run: docker build -t idirall22/gateway:v1 .
 
-      - run: echo "$DOCKER_PASSWORD" | docker login --username $DOCKER_USERNAME --password-stdin
+      - run: echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
 
       - run: docker push idirall22/gateway:v1
 
