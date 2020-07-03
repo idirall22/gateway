@@ -56,8 +56,8 @@ func restServer(
 	if err != nil {
 		log.Fatal(err)
 	}
-	// return http.Serve(l, mux)
-	return http.ServeTLS(l, mux, "cert/server-cert.pem", "cert/server-key.pem")
+	return http.Serve(l, mux)
+	// return http.ServeTLS(l, mux, "cert/server-cert.pem", "cert/server-key.pem")
 }
 
 func main() {
@@ -86,13 +86,13 @@ func main() {
 		log.Fatal(err)
 	}
 
-	serverCert, err := tls.LoadX509KeyPair("cert/server-cert.pem", "cert/server-key.pem")
-	if err != nil {
-		log.Fatal("Tls error: ", err)
-	}
+	// serverCert, err := tls.LoadX509KeyPair("cert/server-cert.pem", "cert/server-key.pem")
+	// if err != nil {
+	// 	log.Fatal("Tls error: ", err)
+	// }
 	config := &tls.Config{
-		Certificates: []tls.Certificate{serverCert},
-		ClientAuth:   tls.NoClientCert,
+		// Certificates: []tls.Certificate{serverCert},
+		ClientAuth: tls.NoClientCert,
 	}
 	cred := credentials.NewTLS(config)
 
