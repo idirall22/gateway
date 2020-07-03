@@ -11,8 +11,10 @@ jobs:
     working_directory: /go/src/github.com/{{ORG_NAME}}/{{REPO_NAME}}
     steps:
       - checkout
-#       - run: go get -v -t -d ./...
-      - setup_remote_docker
+      
+      - setup_remote_docker:
+          docker_layer_caching: true
+          
       - run: docker build -t idirall22/gateway:v1 .
 
       - run: echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
