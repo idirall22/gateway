@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-grpc-deploy
+  labels:
+    app: grpc
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: grpc
+  template:
+    metadata:
+      labels:
+        app: grpc
+    spec:
+      containers:
+      - name: server-grpc
+        env:
+          - name: SERVER_TYPE
+            value: "grpc"
+          - name: SERVER_PORT
+            value: ":8080"
+        image: idirall22/gateway:v1
+        imagePullPolicy: "Always"
+        ports:
+          - name: http
+            containerPort: 8080

@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-rest-deploy
+  labels:
+    app: rest
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: rest
+  template:
+    metadata:
+      labels:
+        app: rest
+    spec:
+      containers:
+      - name: server-rest
+        env:
+          - name: SERVER_TYPE
+            value: "rest"
+          - name: SERVER_PORT
+            value: ":8081"
+          - name: SERVER_GRPC_PORT
+            value: ":80"
+        image: idirall22/gateway:v1
+        imagePullPolicy: "Always"
+        ports:
+          - name: http
+            containerPort: 8081
